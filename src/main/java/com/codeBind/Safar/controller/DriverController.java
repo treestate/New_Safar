@@ -33,12 +33,7 @@ public class DriverController extends SafarBaseController{
 
 	private static final String ADD_NEW_DRIVER = "addNewdriver";
 	private static final String SEARCH_DRIVER_DTLS = "searchDriverDtls";
-
 	private static final String VIEW_EDIT_DRIVER = "viewAndEditDriverDtls"; 
-	
-	/*@Autowired
-	private DriverMstService memberMstService;
-	*/
 
 	@Resource(name="driverMstService")
 	private DriverMstService driverMstService;
