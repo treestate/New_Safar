@@ -16,12 +16,11 @@ public class Constants implements Serializable {
 	public static final String LOGIN_CHK_MSG = "loginCheckMsg";
 	public static final String STRING_ERROR = "error";
 
-
 	public static final String STATUS_INACTIVE = "INACTIVE";
 	public static final String STATUS_ACTIVE = "ACTIVE";
-
-
 	public static final String DEFAULT_LANGUAGE = "ENGLISH";
+	public static final String ID = "id";
+	public static final String SPACED = " ";
 	
 	public static class Actions {
 		public static final String CREATE_ACTION = "CREATE";

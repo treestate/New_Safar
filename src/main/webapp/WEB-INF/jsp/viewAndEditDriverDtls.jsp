@@ -6,7 +6,7 @@
 
 <script type="text/javascript">
 
-	function saveDriverDtls(){
+	function updateDriverDtls(){
 		submit("driverForm","saveDriverDtls.do");
 		
 	}
@@ -16,10 +16,12 @@
 <body>
 	<jsp:include page="header.jsp"/>
 	<form:form method="post" modelAttribute="driverForm" name="driverForm" enctype="multipart/form-data">
+	
+	<form:hidden id="driverMstId" path="driverVo.driverMstId"/>
 		<div class="container panel-box clear">
 			 <div class="row">
 				<div class="col-md-12">
-					<h1 class="panel-box-title title col-md-12 marginBottom10"><spring:message code='label.newDriver' text='New Driver'/></h1>
+					<h1 class="panel-box-title title col-md-12 marginBottom10"><spring:message code='label.viewDriver' text='View Driver'/></h1>
 					
 				</div>	
 			 </div>	
@@ -76,8 +78,8 @@
 			    	 </div>	
 				 </div>
 				  <div class="col-md-12 padding0 col-md-offset-6 marginTop20">
-					 <a class="btn-group btnSave" onclick="saveDriverDtls()">  <spring:message code='button.save' text='Save'/> </a>
-					 <a class="btn-group btnBack" onclick="submit('driverForm','loadAddDriver.do');">  <spring:message code='button.back' text='Back'/> </a>
+					 <a class="btn-group btnSave" onclick="updateDriverDtls()">  <spring:message code='button.save' text='Save'/> </a>
+					  <a class="btn-group btnBack" onclick="submit('driverForm','loadAddDriver.do');">  <spring:message code='button.back' text='Back'/> </a>
 				  </div> 
 		     </div>
 	    </div>

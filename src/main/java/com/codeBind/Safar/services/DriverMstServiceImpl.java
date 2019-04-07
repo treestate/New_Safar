@@ -2,6 +2,7 @@
 package com.codeBind.Safar.services;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -68,7 +69,7 @@ public class DriverMstServiceImpl implements DriverMstService {
 				 for(DriverMst driverMst :driverMstList) {
 					 json = new JSONObject();
 					 CommonUtil.populateJSON(json, "driverMstId",driverMst.getDriverMstId());
-					 CommonUtil.populateJSON(json, "name",driverMst.getFirstName() +driverMst.getLastName());
+					 CommonUtil.populateJSON(json, "name",driverMst.getFirstName() +Constants.SPACED+driverMst.getLastName());
 					 CommonUtil.populateJSON(json, "gender",driverMst.getGender());
 					 array.put(json);
 				 }	
@@ -80,5 +81,60 @@ public class DriverMstServiceImpl implements DriverMstService {
 		
 		logger.info("Exiting getDriverAllDtls()..");
 		return jsonArrayList;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.codeBind.Safar.services.DriverMstService#saveDriverDtls(com.codeBind.Safar.model.Vo.DriverVo)
+	 */
+	@Override
+	public void saveDriverDtls(DriverVo driverVo,Map<String, Object> returnMap) throws SafarException {
+		logger.info("Entering saveDriverDtls()..");
+		DriverMst driverMst = null;
+		try {
+			driverMst =  setDataToDriverMst(driverVo);
+			if(driverMst != null) {
+				driverMst = driverMstDao.save(driverMst);
+				returnMap.put(Constants.ID, driverMst.getDriverMstId());
+			}
+		} catch (Exception e) {
+			logger.info("An Exception occurred while loading Driver details",e);
+		}
+		logger.info("Exiting saveDriverDtls()..");	
+	}
+
+	/**@method use to Data from Vo Model
+	 * @param driverVo	
+	 * @return
+	 */
+	private DriverMst setDataToDriverMst(DriverVo driverVo) {
+		logger.info("Entering setDataToDriverMst()..");
+		
+		DriverMst driverMst = new DriverMst();
+		driverMst.setDriverMstId(driverVo.getDriverMstId());
+		driverMst.setFirstName(driverVo.getFirstName());
+		driverMst.setLastName(driverVo.getLastName());
+		driverMst.setGender(driverVo.getGender());
+		driverMst.setCompCode(driverVo.getCompCode());
+		
+		logger.info("Exiting setDataToDriverMst()..");
+		return driverMst;
+	}
+	
+	/* (non-Javadoc)
+	 * @see com.codeBind.Safar.services.DriverMstService#viewDriverDtls(com.codeBind.Safar.model.Vo.DriverVo)
+	 */
+	@Override
+	public void viewDriverDtls(DriverVo driverVo)throws SafarException{
+		logger.info("Entering viewDriverDtls()..");
+		
+		DriverMst driverMst = driverMstDao.getOne(driverVo.getDriverMstId());
+		if( driverMst != null) {
+			driverVo.setDriverMstId(driverMst.getDriverMstId());
+			driverVo.setFirstName(driverMst.getFirstName());
+			driverVo.setLastName(driverMst.getLastName());
+			driverVo.setGender(driverMst.getGender());
+			driverVo.setCompCode(driverMst.getCompCode());
+		}
+		logger.info("Exiting viewDriverDtls()..");
 	}
 }

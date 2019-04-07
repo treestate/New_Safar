@@ -32,7 +32,9 @@ public class DriverController extends SafarBaseController{
 	private static final Logger logger = LogManager.getLogger(DriverController.class);
 
 	private static final String ADD_NEW_DRIVER = "addNewdriver";
-	private static final String SEARCH_DRIVER_DTLS = "searchDriverDtls"; 
+	private static final String SEARCH_DRIVER_DTLS = "searchDriverDtls";
+
+	private static final String VIEW_EDIT_DRIVER = "viewAndEditDriverDtls"; 
 	
 	/*@Autowired
 	private DriverMstService memberMstService;
@@ -111,5 +113,99 @@ public class DriverController extends SafarBaseController{
 		
 		logger.info("Exiting addNewDriver()..");
 		return new ModelAndView(ADD_NEW_DRIVER, returnMap);
+	}
+	
+	/**@METHOD use to add New Driver 
+	 * @param form
+	 * @param result
+	 * @return
+	 */
+	@RequestMapping(value = "/saveDriverDtls.do")
+	public ModelAndView saveDriverDtls(@ModelAttribute("driverForm") DriverForm form, BindingResult result) {
+		logger.info("Entering saveDriverDtls()...");
+		
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+
+		try {
+			
+			DriverVo driverVo = form.getDriverVo();
+			setDefualtValue(driverVo);
+			driverMstService.saveDriverDtls(driverVo,returnMap);
+			
+			
+			if (!validateUser(Constants.Modules.ADD_DRIVER, Constants.Actions.CREATE_ACTION)) {
+				logger.info("Exiting loadEgmRequest in validator()....");
+				return new ModelAndView(UNAUTHORIZED_VIEW);
+			}
+
+		} catch(Exception e) {
+			logger.info("An Exception occurred while loading Add Driver ",e);
+			result.rejectValue(Constants.STRING_ERROR,"An error occured while processing your request. Please Contact Administrator","");
+		}
+		
+		logger.info("Exiting saveDriverDtls()..");
+		return new ModelAndView(ADD_NEW_DRIVER, returnMap);
+	}
+
+	private void setDefualtValue(DriverVo driverVo) {
+		logger.info("Entering setDefualtValue()...");
+		driverVo.setCompCode(getUserSession().getCompCode());
+		logger.info("Exiting setDefualtValue()..");
+	}
+	
+
+	
+	/**@METHOD use to add New Driver 
+	 * @param form
+	 * @param result
+	 * @return
+	 */
+	@RequestMapping(value = "/viewDriverDtls.do")
+	public ModelAndView viewDriverDtls(@ModelAttribute("driverForm") DriverForm form, BindingResult result) {
+		logger.info("Entering viewDriverDtls()...");
+	
+		logger.info("Exiting viewDriverDtls()..");
+		return loadDriverDtls(form,result);
+	}
+	/**@METHOD use to add New Driver 
+	 * @param form
+	 * @param result
+	 * @return
+	 */
+	@RequestMapping(value = "/editDriverDtls.do")
+	public ModelAndView editDriverDtls(@ModelAttribute("driverForm") DriverForm form, BindingResult result) {
+		logger.info("Entering viewDriveditDriverDtlserDtls()...");
+	
+		logger.info("Exiting editDriverDtls()..");
+		return loadDriverDtls(form,result);
+	}
+	/**@METHOD use to add New Driver 
+	 * @param form
+	 * @param result
+	 * @return
+	 */
+	public ModelAndView loadDriverDtls(@ModelAttribute("driverForm") DriverForm form, BindingResult result) {
+		logger.info("Entering loadDriverDtls()...");
+		
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+
+		try {
+			
+			DriverVo driverVo = form.getDriverVo();
+			setDefualtValue(driverVo);
+			driverMstService.viewDriverDtls(driverVo);
+			
+			if (!validateUser(Constants.Modules.ADD_DRIVER, Constants.Actions.CREATE_ACTION)) {
+				logger.info("Exiting loadEgmRequest in validator()....");
+				return new ModelAndView(UNAUTHORIZED_VIEW);
+			}
+
+		} catch(Exception e) {
+			logger.info("An Exception occurred while loading Add Driver ",e);
+			result.rejectValue(Constants.STRING_ERROR,"An error occured while processing your request. Please Contact Administrator","");
+		}
+		
+		logger.info("Exiting loadDriverDtls()..");
+		return new ModelAndView(VIEW_EDIT_DRIVER, returnMap);
 	}
 }

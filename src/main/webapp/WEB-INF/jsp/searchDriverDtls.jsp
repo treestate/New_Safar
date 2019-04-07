@@ -9,10 +9,6 @@ var  body = "";
 var checkedVal = "";
 function doOnLoad() {
 		//setSectionSelected(160);
-		//setDataTable();
-		//$(".choosen_select select").chosen();
-	    //setDateRange();	
-		alert(document.getElementById('jsonData').value);
 		 setDataTable();
 	}
 	
@@ -110,11 +106,13 @@ function setDataTable() {
 		});
 	}
 	function viewDriverRequest(){
-		alert(checkedVal);
+		document.getElementById('driverMstId').value = checkedVal;
+		submit("driverForm","viewDriverDtls.do");
 	}
 	
 	function editDriverRequest(){
-		alert(checkedVal);
+		document.getElementById('driverMstId').value = checkedVal;
+		submit("driverForm","editDriverDtls.do");
 	}
 </script>
 </head>
@@ -123,9 +121,7 @@ function setDataTable() {
 <jsp:include page="header.jsp"/>
 
 <form:form method="post" modelAttribute="driverForm" name="driverForm" enctype="multipart/form-data">
-	
-	<form:hidden id="name" path="driverVo.name"/>
-	<form:hidden id="mobileNo" path="driverVo.mobileNo"/>
+	<form:hidden id="driverMstId" path="driverVo.driverMstId"/>
 	<form:hidden id="jsonData" path="driverVo.jsonData"/>
 	<div class="container clear">
 			<div class="row">
@@ -135,6 +131,9 @@ function setDataTable() {
 					</div> 
 				</div>
 			</div>
+			<font color="red" class="col-md-3">
+				<form:errors path="error"/>
+			</font>
 			<div class="row">
 				<div class="col-md-12 marginTop10">
 					<div class="padding0" id="showdiv">

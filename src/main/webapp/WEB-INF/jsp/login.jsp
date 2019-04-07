@@ -20,7 +20,7 @@
 <style>
 body
 {
-    background: url('img/Comp.jpg') fixed;
+    background: url('img/safarImg.jpg') fixed;
     background-size: cover;
     padding: 0;
     margin: 0;

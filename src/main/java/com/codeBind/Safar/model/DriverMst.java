@@ -23,6 +23,9 @@ public class DriverMst implements Serializable {
 	@Column(name = "DRIVER_MST_ID", unique = true, nullable = false, columnDefinition = "bigint")
 	private Integer driverMstId;
 	
+	@Column(name = "COMP_CODE")
+	private String compCode;
+	
 	@Column(name = "FIRST_NM")
 	private String firstName;
 	
@@ -47,6 +50,20 @@ public class DriverMst implements Serializable {
 	 */
 	public void setDriverMstId(Integer driverMstId) {
 		this.driverMstId = driverMstId;
+	}
+
+	/**
+	 * @return the compCode
+	 */
+	public String getCompCode() {
+		return compCode;
+	}
+
+	/**
+	 * @param compCode the compCode to set
+	 */
+	public void setCompCode(String compCode) {
+		this.compCode = compCode;
 	}
 
 	/**
